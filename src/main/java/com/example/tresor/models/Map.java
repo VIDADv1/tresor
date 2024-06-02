@@ -30,13 +30,19 @@ public class Map {
         cells[y][x].setMountain(true);
     }
 
+    public void addAdventurer(int x, int y) {
+        cells[y][x].setAdventurer(true);
+    }
+
     public void addTreasure(int x, int y, int treasures) {
         cells[y][x].setTreasures(treasures);
     }
 
     public void simulate() {
-        for (Adventurer adventurer : adventurers) {
-            adventurer.move(this);
+        while (adventurers.stream().anyMatch(adventurer -> !adventurer.getMovements().isEmpty())) {
+            for (Adventurer adventurer : adventurers) {
+                adventurer.move(this);
+            }
         }
     }
 
@@ -44,7 +50,7 @@ public class Map {
         if (x < 0 || x >= width || y < 0 || y >= height) {
             return false;
         }
-        return !cells[y][x].isMountain();
+        return !cells[y][x].isMountain() && !cells[y][x].isAdventurer();
     }
 
     public Cell getCell(int x, int y) {

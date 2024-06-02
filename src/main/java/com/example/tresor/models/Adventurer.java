@@ -33,7 +33,7 @@ public class Adventurer {
     }
 
     public void move(Map map) {
-        while (!movements.isEmpty()) {
+        if (!movements.isEmpty()) {
             Movement movement = movements.poll();
             switch (movement) {
                 case ADVANCE:
@@ -67,11 +67,15 @@ public class Adventurer {
                 break;
         }
         if (map.isAccessible(newX, newY)) {
+            Cell oldCell = map.getCell(x, y);
+            oldCell.setAdventurer(false);
+
             x = newX;
             y = newY;
-            Cell cell = map.getCell(x, y);
-            if (cell.getTreasures() > 0) {
-                cell.collectTreasure();
+            Cell newCell = map.getCell(x, y);
+            newCell.setAdventurer(true);
+            if (newCell.getTreasures() > 0) {
+                newCell.collectTreasure();
                 collectedTreasures++;
             }
         }

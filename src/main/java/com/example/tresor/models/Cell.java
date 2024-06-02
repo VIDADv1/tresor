@@ -8,6 +8,7 @@ import lombok.Setter;
 public class Cell {
 
     private boolean mountain;
+    private boolean adventurer;
     private int treasures;
 
     public void collectTreasure() {

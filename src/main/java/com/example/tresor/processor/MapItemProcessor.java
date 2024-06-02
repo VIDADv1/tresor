@@ -47,6 +47,7 @@ public class MapItemProcessor implements ItemProcessor<String, Object> {
                 String movements = parts[5];
                 Adventurer adventurer = new Adventurer(name, x, y, orientation, movements);
                 TresorSingleton.getAdventurers().add(adventurer);
+                TresorSingleton.getMap().addAdventurer(x, y);
                 break;
             }
             default:
